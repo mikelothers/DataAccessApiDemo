@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Paratext Data Access</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./unformatted.css">
+
+    <!-- Scripts -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="window.js"></script>
+  </head>
+  
+  <body>
+  <div id="serverControl">
+      <div class="indent">
+          <h4>Paratext Send/Receive Server Data Access</h4>
+          <div id="requestRegion" class="indentboth"></div>
+          <div>
+              <div id="getFromServer"></div>
+              <div id="checkBookRevOnServer"></div>
+              <div id="dataChangedButton"></div>
+          </div>
+      </div>
+  </div>
+    <div id="bootStrapRows">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="indent"><a data-toggle="modal" href="#registrationModal" class="btn btn-primary indent">Enter Paratext Registration</a></div>
+            <!-- TODO: get last used registration from session storage -->
+            <p id="usernameDisplay" class="indent2"></p>
+            <p id="regCodeDisplay" class="indent2"></p>
+            <p id="authenticateState" class="small indent2">User not authenticated</p>
+            <p id="tokenDisplay"></p>
+            <div id="authenticateBtn" class="indent"><a class="btn btn-primary indent" onclick="authenticate()">Authenticate</a></div>
+            <br />
+            <div id="userProjects"></div>
+            <div id="projectBooks"></div>
+            <div id="requestType"></div>
+            <div id="queryDetails"></div>
+            <div id="dateQuery">
+                <div id="dateEntry" class="panel panel-default">
+                    <div class="indentboth">
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="date">Only display notes created on or after:</label>
+                                <input class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" type="text"  onchange="setNoteStartDate()">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div><a id="showModal" data-toggle="modal" href="#standardModal"></a></div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+        </div>
+        <div class="col-sm-8">
+            <p class="strong">Requested Paratext data...</p>
+            <div id="dataDisplay">
+                <div><small>No data to display</small></div>
+            </div>
+            <div id="transformBtn"></div>
+        </div>
+    </div>
+    </div>
+	
+	<!-- Modal dialog to enter Paratext registration information -->
+	<div class="modal" id="registrationModal">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			  <h4 class="modal-title">Paratext Registration</h4>
+			</div>
+			<div class="container"></div>
+			<div class="modal-body">
+				<form>
+				  <div class="form-group">
+					<label for="username">Paratext username:</label>
+					<input type="text" class="form-control" id="username" placeholder="Enter your Paratext username">
+				  </div>
+				  <div class="form-group">
+					<label for="regCode">Registration:</label>
+					<input type="text" class="form-control" id="regCode" placeholder="Enter your Paratext registration code">
+				  </div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			  <a href="#" data-dismiss="modal" class="btn">Close</a>
+			  <a href="#" id="submitButton" data-dismiss="modal" onclick="submitData()" class="btn btn-primary">Submit</a>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+	<!-- Modal dialog to display status of revisions -->
+	<div class="modal" id="standardModal">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			  <h4 class="modal-title" id="modalTitle"></h4>
+			</div>
+			<div class="container"></div>
+			<div class="modal-body" id="modalBody">
+			</div>
+			<div class="modal-footer">
+			  <a href="#" data-dismiss="modal" class="btn">Close</a>
+			</div>
+		  </div>
+		</div>
+	</div>
+</body>
+
+<script>
+    require('./renderer.js');
+    require('./window.js');
+	
+    window.onload = initializeView;
+
+    window.onerror = function(msg, url, line, col, error) {
+        // Note that col & error are new to the HTML 5 spec and may not be 
+        // supported in every browser.  It worked for me in Chrome.
+        var extra = !col ? '' : '\ncolumn: ' + col;
+        extra += !error ? '' : '\nerror: ' + error;
+
+        // You can view the information in an alert to see things working like this:
+        alert("Error: " + msg + "\nurl: " + url + "\nline: " + line + extra);
+
+        var suppressErrorAlert = true;
+        // If you return true, then error alerts (like in older versions of 
+        // Internet Explorer) will be suppressed.
+        return suppressErrorAlert;
+    };
+	
+    process.on('uncaughtException', function () { 
+        alert("Uncaught exception!");
+    });
+</script>
+</html>

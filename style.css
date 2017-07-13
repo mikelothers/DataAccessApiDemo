@@ -1,0 +1,47 @@
+p, h3, a, button, small, .indent {
+	padding-left: 10px;
+}
+
+.indentboth {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.indent2 {
+	padding-left: 20px;
+}
+
+/* Sets width for pagination boxes (used to display book ids) */
+.pagination > li a {
+  min-width: 50px;
+}
+
+div#serverControl {
+    width: 100%;
+    overflow: hidden; /* anything that doesn't fit in panel won't be visible */
+    height: 200px;
+    z-index: 1000; /* make div on top of everything */
+    background-color: #BDBDBD; /*white;*/
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+} 
+/* I would like the serverControl div to adjust to the content. Here's a topic that didn't seem to help, although the example worked:
+    http://jsfiddle.net/XmKrm/1/
+*/
+
+div#serverControl > input {
+    width: 100%;
+}
+
+div#checkBookRevOnServer, 
+div#getFromServer, 
+div#dataChangedButton {
+    display: inline-block;
+}
+
+div#bootStrapRows {
+    top: 210px;
+    position: relative;
+}

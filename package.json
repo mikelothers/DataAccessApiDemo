@@ -1,0 +1,27 @@
+{
+  "name": "DataAccess",
+  "version": "1.0.0",
+  "description": "Paratext S/R server data access application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/DataAccessDemo",
+  "keywords": [
+    "Electron",
+    "Paratext",
+    "Data",
+    "Access",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "debug-menu": "^0.6.0",
+    "devtron": "^1.4.0",
+    "electron": "~1.6.2"
+  },
+  "dependencies": {
+    "electron-debug": "^1.1.0"
+  }
+}
