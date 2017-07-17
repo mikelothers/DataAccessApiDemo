@@ -29,7 +29,15 @@ function submitData() {
 
 // Attempt JWT authentication sending the registry server a Paratext user's name and registration code.
 function authenticate() {
-	token = "";
+    // Reset view for a new user
+    token = "";
+    requestType = "";
+    document.getElementById("userProjects").innerHTML = "";
+    document.getElementById("projectBooks").innerHTML = "";
+    document.getElementById("requestType").innerHTML = "";
+    document.getElementById("queryDetails").innerHTML = "";
+    showDate(false);
+
 	var userName = document.getElementById("usernameDisplay").innerHTML;
 	var registrationCode = document.getElementById("regCodeDisplay").innerHTML;
 	if (isEmpty(userName) || isEmpty(registrationCode)) {
@@ -126,7 +134,7 @@ function makeServerRequest() {
 	            /* TODO: Need to (1) pass parameters to XSLT as is done with C#; (2) write extension methods in JavaScript */
 	            if (document.getElementById("data").innerHTML.includes('usx')) {
 	                // request is for Scripture text
-	                document.getElementById("transformBtn").innerHTML = "<a class=\"btn btn-primary indent\" onclick=\"transform()\">Transform</a>";
+	                //document.getElementById("transformBtn").innerHTML = "<a class=\"btn btn-primary indent\" onclick=\"transform()\">Transform</a>";
 	                document.getElementById("checkBookRevOnServer").innerHTML = "<a class=\"btn btn-primary indent\" onclick=\"getRevisions(checkBookRevisions)\"" +
                         " title='Displays how hg revisions have changed for the book " + bookId + " since it was obtained, if at all'>Check Revisions</a>";
 	                origRevisionsXml = getRevisions(initializeBookRevisions);
